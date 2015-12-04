@@ -1,8 +1,9 @@
 require_relative 'tile'
+require 'byebug'
 
 class Board
 
-  attr_accessor :grid, :mine_count, :revealed_count
+  attr_accessor :grid, :mine_count, :revealed_count, :revealed_tiles
 
   def initialize(grid = Array.new(9) { Array.new(9)})
     @grid = grid
@@ -10,6 +11,7 @@ class Board
     @mine_count = 0
     place_mines
     @revealed_count = 0
+    @revealed_tiles = []
   end
 
   def populate_grid

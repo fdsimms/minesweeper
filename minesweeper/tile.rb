@@ -1,4 +1,5 @@
 require_relative 'board'
+require 'byebug'
 
 class Tile
 
@@ -29,7 +30,14 @@ class Tile
 
   def reveal
     self.revealed = true
-    board.revealed_count += 1
+    if self.neighbor_bomb_count == 0
+
+      self.neighbors.each do |neighbor|
+        neighbor.reveal unless neighbor.revealed?
+      end
+    end
+
+
   end
 
   def neighbors
@@ -39,19 +47,15 @@ class Tile
     ADJACENT_TILES.each do |adj_pos|
       x, y = adj_pos
       neigh_pos = [x + dx, y + dy]
-      neighbor = board[neigh_pos]
-      neighbors << neighbor if (neighbor && in_bounds?(neigh_pos))
+      neighbors << board[neigh_pos] if in_bounds?(neigh_pos)
     end
+
     neighbors
   end
 
   def in_bounds?(pos)
     x, y = pos
-    if x.between?(0,8) && y.between?(0,8)
-      return true
-    else
-      false
-    end
+    x.between?(0,8) && y.between?(0,8)
   end
 
   def neighbor_bomb_count
@@ -77,7 +81,7 @@ class Tile
   end
 
   def inspect
-    to_s
+    pos
   end
 
   def to_s
@@ -89,10 +93,19 @@ class Tile
       end
     elsif flagged?
       "F"
-    elsif revealed? && bombed?
+    elsif  bombed?
       "B"
     else
       "*"
+    end
+  end
+
+
+
+  def remove_revealed_neighbors(neighbors)
+    neighbors.select do |neighbor|
+      bomb_count = neighbor.neighbor_bomb_count
+      !board.revealed_tiles.include?(neighbor) && bomb_count == 0
     end
   end
 

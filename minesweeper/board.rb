@@ -1,3 +1,5 @@
+require_relative 'tile'
+
 class Board
 
   attr_accessor :grid, :mine_count
@@ -21,13 +23,10 @@ class Board
   def place_mines
     until mine_count == 10
       x, y = rand(0..8), rand(0..8)
-      board[x, y] = :b
-      mine_count += 1
+      pos = [x, y]
+      self[pos] = :b
+      self.mine_count += 1
     end
-  end
-
-  def mine_count
-
   end
 
 end

@@ -102,13 +102,5 @@ class Tile
 
 
 
-  def remove_revealed_neighbors(neighbors)
-    neighbors.select do |neighbor|
-      bomb_count = neighbor.neighbor_bomb_count
-      !board.revealed_tiles.include?(neighbor) && bomb_count == 0
-    end
-  end
-
-
 
 end

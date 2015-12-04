@@ -47,26 +47,6 @@ class Game
     end
   end
 
-  def reveal_neighbors(tile)
-    if tile.neighbor_bomb_count == 0
-
-      neighbors_queue = [tile]
-
-      until neighbors_queue.empty?
-        current_tile = neighbors_queue.shift
-        neighbors = current_tile.neighbors
-
-        neighbors.each do |neighbor|
-
-          next if neighbor.bombed? || neighbor.flagged? || neighbor.revealed?
-
-          neighbor.reveal
-          new_neighbors = remove_revealed_neighbors(neighbor.neighbors)
-          neighbors_queue += new_neighbors
-        end
-      end
-    end
-  end
 
   def guess
     input = gets.chomp.gsub(/\W/, "").split("") #["LETTER", "NUM", "NUM"]

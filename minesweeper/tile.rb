@@ -39,10 +39,19 @@ class Tile
     ADJACENT_TILES.each do |adj_pos|
       x, y = adj_pos
       neigh_pos = [x + dx, y + dy]
-      neighbors << board[neigh_pos]
+      neighbor = board[neigh_pos]
+      neighbors << neighbor if (neighbor && in_bounds?(neigh_pos))
     end
-
     neighbors
+  end
+
+  def in_bounds?(pos)
+    x, y = pos
+    if x.between?(0,8) && y.between?(0,8)
+      return true
+    else
+      false
+    end
   end
 
   def neighbor_bomb_count

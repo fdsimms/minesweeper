@@ -17,7 +17,7 @@ class Game
       play_turn
     end
 
-    won? ? puts "You've won!" : "Shit! You lost!"
+    puts won? ? "You've won!" : "Shit! You lost!"
 
   end
 
@@ -34,6 +34,7 @@ class Game
     if letter == "R"
       tile.reveal
       reveal_neighbors(tile)
+
       if tile.bombed?
         self.lost = true
       end
@@ -46,6 +47,21 @@ class Game
   end
 
   def reveal_neighbors(tile)
+    neighbors_queue = [tile]
+
+
+    until neighbors_queue.empty?
+      current_tile = neighbors_queue.shift
+      neighbors = current_tile.neighbors
+
+      neighbors.each do |neighbor|
+        if !neighbor.bombed? && !neighbor.flagged?
+          neighbor.reveal
+          neighbors_queue += neighbor.neighbors
+        end
+      end
+
+    end
 
   end
 

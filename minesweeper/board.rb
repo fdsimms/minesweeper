@@ -6,10 +6,20 @@ class Board
 
   attr_accessor :grid, :mine_count
 
-  def initialize(grid = Array.new(9) { Array.new(9) { Tile.new(self) } })
+  def initialize(grid = Array.new(9) { Array.new(9)})
     @grid = grid
+    populate_grid
     @mine_count = 0
     place_mines
+  end
+
+  def populate_grid
+    grid.length.times do |x|
+      grid.length.times do |y|
+        pos = [x, y]
+        self[pos] = Tile.new(self, pos)
+      end
+    end
   end
 
   def [](pos)

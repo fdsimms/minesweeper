@@ -20,23 +20,38 @@ class Tile
     @bombed = bombed
     @revealed = false
     @flagged = false
+    @pos = pos
   end
 
   def reveal
     self.revealed = true
   end
 
-  def neighbors(pos)
-    @pos = pos
+  def neighbors
     dx, dy = pos
+    neighbors = []
 
-    neighbors = ADJACENT_TILES.map do |tile_array|
-      x, y = tile_array
-      [x + dx, y + dy]
+    ADJACENT_TILES.each do |adj_pos|
+      x, y = adj_pos
+      neigh_pos = [x + dx, y + dy]
+      neighbors << board[neigh_pos]
     end
+
+    neighbors
   end
 
   def neighbor_bomb_count
+    count = 0
+
+    neighbors.each do |neighbor|
+      count += 1 if neighbor.bombed?
+    end
+
+    count
+  end
+
+  def bombed?
+    @bombed
   end
 
   def inspect

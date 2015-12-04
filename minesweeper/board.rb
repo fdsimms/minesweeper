@@ -4,7 +4,7 @@ class Board
 
   attr_accessor :grid, :mine_count
 
-  def initialize(grid = Array.new(9) { Array.new(9) })
+  def initialize(grid = Array.new(9) { Array.new(9) { Tile.new(self) } })
     @grid = grid
     @mine_count = 0
     place_mines
@@ -24,7 +24,7 @@ class Board
     until mine_count == 10
       x, y = rand(0..8), rand(0..8)
       pos = [x, y]
-      self[pos] = :b
+      self[pos].bombed = true
       self.mine_count += 1
     end
   end

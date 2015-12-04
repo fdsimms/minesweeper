@@ -15,11 +15,15 @@ class Tile
     self.revealed = true
   end
 
-  def neighbors
+  def neighbors(board)
+    @board = board
   end
 
   def neighbor_bomb_count
   end
 
+  def inspect
+    "#{bombed} #{flagged}"
+  end
 
 end

@@ -54,8 +54,31 @@ class Tile
     @bombed
   end
 
+  def flagged?
+    @flagged
+  end
+
+  def revealed?
+    @revealed
+  end
+
   def inspect
-    "#{bombed} #{flagged}"
+    to_s
+  end
+
+  def to_s
+    case self
+    when revealed? && !bombed?
+      if neighbor_bomb_count == 0
+        "_"
+      else
+        "#{neighbor_bomb_count}"
+      end
+    when flagged?
+      "F"
+    else
+      "*"
+    end
   end
 
 

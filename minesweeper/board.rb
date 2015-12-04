@@ -42,8 +42,13 @@ class Board
   end
 
   def display
+    grid.length.times do |row|
 
+      grid.length.times do |y|
+        pos = [x, y]
 
+      end
+    end
   end
 
 end

@@ -23,6 +23,10 @@ class Tile
     @pos = pos
   end
 
+  def flag
+    self.flagged = true
+  end
+
   def reveal
     self.revealed = true
     board.revealed_count += 1

@@ -2,6 +2,8 @@ require_relative 'tile'
 
 class Board
 
+
+
   attr_accessor :grid, :mine_count
 
   def initialize(grid = Array.new(9) { Array.new(9) { Tile.new(self) } })
@@ -27,6 +29,11 @@ class Board
       self[pos].bombed = true
       self.mine_count += 1
     end
+  end
+
+  def display
+
+
   end
 
 end

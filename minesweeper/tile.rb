@@ -2,9 +2,20 @@ require_relative 'board'
 
 class Tile
 
-  attr_accessor :bombed, :revealed, :flagged, :board
+  ADJACENT_TILES = [
+    [-1, -1],
+    [-1,  0],
+    [-1,  1],
+    [ 0, -1],
+    [ 0,  1],
+    [ 1, -1],
+    [ 1,  0],
+    [ 1,  1]
+  ]
 
-  def initialize(board, bombed = false)
+  attr_accessor :bombed, :revealed, :flagged, :board, :pos
+
+  def initialize(board, pos, bombed = false)
     @board = board
     @bombed = bombed
     @revealed = false
@@ -15,8 +26,14 @@ class Tile
     self.revealed = true
   end
 
-  def neighbors(board)
-    @board = board
+  def neighbors(pos)
+    @pos = pos
+    dx, dy = pos
+
+    neighbors = ADJACENT_TILES.map do |tile_array|
+      x, y = tile_array
+      [x + dx, y + dy]
+    end
   end
 
   def neighbor_bomb_count
@@ -25,5 +42,7 @@ class Tile
   def inspect
     "#{bombed} #{flagged}"
   end
+
+
 
 end

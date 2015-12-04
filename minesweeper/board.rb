@@ -2,15 +2,14 @@ require_relative 'tile'
 
 class Board
 
-
-
-  attr_accessor :grid, :mine_count
+  attr_accessor :grid, :mine_count, :revealed_count
 
   def initialize(grid = Array.new(9) { Array.new(9)})
     @grid = grid
     populate_grid
     @mine_count = 0
     place_mines
+    @revealed_count = 0
   end
 
   def populate_grid
@@ -52,6 +51,10 @@ class Board
 
       puts d_row.join(" ")
     end
+  end
+
+  def won?
+    revealed_count == 81 - mine_count
   end
 
 end

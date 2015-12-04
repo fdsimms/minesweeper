@@ -25,6 +25,7 @@ class Tile
 
   def reveal
     self.revealed = true
+    board.revealed_count += 1
   end
 
   def neighbors

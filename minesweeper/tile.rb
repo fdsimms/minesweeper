@@ -51,15 +51,15 @@ class Tile
   end
 
   def bombed?
-    @bombed
+    bombed
   end
 
   def flagged?
-    @flagged
+    flagged
   end
 
   def revealed?
-    @revealed
+    revealed
   end
 
   def inspect
@@ -67,15 +67,16 @@ class Tile
   end
 
   def to_s
-    case self
-    when revealed? && !bombed?
+    if revealed? && !bombed?
       if neighbor_bomb_count == 0
         "_"
       else
         "#{neighbor_bomb_count}"
       end
-    when flagged?
+    elsif flagged?
       "F"
+    elsif revealed? && bombed?
+      "B"
     else
       "*"
     end

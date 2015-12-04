@@ -42,12 +42,15 @@ class Board
   end
 
   def display
+    puts "    1 2 3 4 5 6 7 8 9"
     grid.length.times do |row|
-
-      grid.length.times do |y|
-        pos = [x, y]
-
+      d_row = ["#{row + 1} |"]
+      grid.length.times do |col|
+        pos = [row, col]
+        d_row << self[pos].to_s
       end
+
+      puts d_row.join(" ")
     end
   end
 
